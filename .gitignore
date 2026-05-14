@@ -1,0 +1,40 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Python (build tools)
+__pycache__/
+*.pyc
+
+# Build artifacts of recordings (regenerable from kacper_sounds/*.mp3 via tools/normalize_recordings.sh)
+kacper_sounds/normalized/
+
+# Original raw voice recordings — only the compressed .ogg variants in audio/ are committed.
+kacper_sounds/
+
+# Uncompressed audio in audio/ — only the .ogg variants are committed.
+# Regenerate locally with:  python3 tools/sync_voices.py && bash tools/compress_audio.sh
+audio/**/*.wav
+
+# Source asset pack — huge 3rd-party bundle (~100MB). Keep only the curated subset
+# in `assets/` (referenced by sprites.js) inside the repo. Anyone who needs the
+# full pack can re-download it from:
+# https://pixel-boy.itch.io/ninja-adventure-asset-pack
+Ninja Adventure - Asset Pack/
+
+# Local debug pages (handy during development, not part of the game)
+debug/
+
+# Build mirror used for deployment (regenerated from src/, index.html, styles.css)
+deploy/
+
+# Logs
+*.log
+
+# Local serve.py runtime garbage
+.cache/

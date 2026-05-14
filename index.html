@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover" />
+  <title>Sylabowy Ninja — gra do nauki czytania</title>
+  <link rel="stylesheet" href="styles.css?v=3" />
+</head>
+<body>
+  <div id="menu" class="screen">
+    <img id="logo" src="assets/logo.png?v=2" alt="Sylabowy Ninja" />
+    <h1 class="sr-only">Sylabowy Ninja</h1>
+    <p>Wybierz zestaw głosek:</p>
+    <div id="set-list" class="set-list"></div>
+    <button id="start-btn" class="big-btn" disabled>Start</button>
+    <div class="difficulty-options">
+      <label>
+        <input id="opt-no-reveal" type="checkbox">
+        <span>🔇 Bez podpowiedzi wizualnej (spacja / dotyk dalej wymawia głoskę)</span>
+      </label>
+      <label>
+        <input id="opt-no-enemies" type="checkbox">
+        <span>🚫 Bez potworów</span>
+      </label>
+    </div>
+    <div class="audio-settings">
+      <label>
+        <span>🎵 Muzyka</span>
+        <input id="music-vol" type="range" min="0" max="100" value="15">
+      </label>
+      <label>
+        <span>🔔 Efekty</span>
+        <input id="sfx-vol" type="range" min="0" max="100" value="60">
+      </label>
+      <button id="fullscreen-btn" type="button" title="Pełny ekran">⛶ Pełny ekran</button>
+    </div>
+    <p class="hint">Sterowanie: strzałki / WASD lub dotyk (D-pad pojawi się na telefonie).</p>
+    <p class="hint">Klawisze: <b>spacja</b> — podpowiedź, <b>P</b> — pauza, <b>R</b> — powrót do domku.</p>
+    <div class="credits">
+      <h3>O grze</h3>
+      <p>
+        <strong>Sylabowy Ninja</strong> — gra do nauki czytania polskich głosek i sylab.
+      </p>
+      <dl>
+        <dt>Autor</dt>
+        <dd>
+          Artur Andrzejczak — <a href="https://akandr.cc" target="_blank" rel="noopener">akandr.cc</a><br>
+          <span class="muted">stworzone z pomocą Claude Opus 4.7 (Anthropic)</span>
+        </dd>
+
+        <dt>Kod</dt>
+        <dd>Licencja <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener">GNU AGPL v3</a> — © 2026 Artur Andrzejczak.</dd>
+
+        <dt>Grafika i efekty dźwiękowe</dt>
+        <dd>
+          <a href="https://pixel-boy.itch.io/ninja-adventure-asset-pack" target="_blank" rel="noopener">Ninja Adventure Asset Pack</a>
+          — Pixel-boy &amp; AAA. Licencja
+          <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener">CC0 1.0</a> (domena publiczna).
+        </dd>
+
+        <dt>Muzyka w tle</dt>
+        <dd>
+          „Forest Ambient Game Music” — <a href="https://16pixel.itch.io/" target="_blank" rel="noopener">16Pixel</a>,
+          via OpenGameArt.org. Licencja
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.
+        </dd>
+
+        <dt>Głos</dt>
+        <dd>
+          Nagrania polskich sylab i komunikatów — Kacper Andrzejczak.
+          Licencja
+          <a href="https://creativecommons.org/licenses/by/4.0/deed.pl" target="_blank" rel="noopener">CC BY 4.0</a>.
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+  <div id="game" class="screen hidden">
+    <canvas id="canvas" width="960" height="640"></canvas>
+    <div id="hud">
+      <div id="target">…</div>
+      <div id="power-rings" aria-hidden="true">
+        <svg class="power-ring off" data-ring="power" viewBox="0 0 48 48">
+          <circle class="track" cx="24" cy="24" r="18"></circle>
+          <circle class="fill"  cx="24" cy="24" r="18"></circle>
+        </svg>
+        <svg class="power-ring off" data-ring="freeze" viewBox="0 0 48 48">
+          <circle class="track" cx="24" cy="24" r="18"></circle>
+          <circle class="fill"  cx="24" cy="24" r="18"></circle>
+        </svg>
+      </div>
+      <div id="score">0</div>
+      <div id="combo"></div>
+      <div id="timer">00:00</div>
+      <button id="mute-btn" title="Wycisz">🔊</button>
+      <button id="back-btn" title="Menu">⏏</button>
+    </div>
+    <div id="progress-bar"><div id="progress-fill"></div></div>
+    <div id="dpad" class="hidden">
+      <button data-dir="up">▲</button>
+      <button data-dir="left">◀</button>
+      <button data-dir="right">▶</button>
+      <button data-dir="down">▼</button>
+    </div>
+    <div id="loading-overlay" class="hidden">
+      <div class="loading-card">
+        <p id="loading-text">Ładowanie dźwięków…</p>
+        <div class="loading-track"><div id="loading-fill"></div></div>
+        <p id="loading-detail" class="loading-detail"></p>
+        <button id="loading-menu-btn" type="button" class="loading-menu-btn">⏏ Menu</button>
+      </div>
+    </div>
+    <div id="win-screen" class="hidden">
+      <div class="win-card">
+        <div class="win-emoji">🎉🎊✨</div>
+        <h2>Brawo!</h2>
+        <p>Świetnie ci poszło — 100 punktów!</p>
+        <p class="win-time">Twój czas: <span id="win-time">—</span></p>
+        <ul id="win-stats" class="win-stats"></ul>
+        <button id="win-again-btn" class="big-btn">Zagraj jeszcze raz</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js?v=78"></script>
+</body>
+</html>

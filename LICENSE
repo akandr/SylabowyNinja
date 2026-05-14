@@ -1,0 +1,78 @@
+Sylabowy Ninja
+Copyright (C) 2026 Artur Andrzejczak  <https://akandr.cc>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+The full text of the GNU AGPL v3 is included in this repository at
+`LICENSES/AGPL-3.0.txt`.
+
+Note: because this is a network-served (web) application, AGPL section 13
+applies — anyone who runs a modified copy of this game on a publicly
+accessible server must offer the corresponding source code to its users.
+
+Development assisted by Claude Opus 4.7 (Anthropic, via GitHub Copilot).
+
+================================================================================
+Third-party assets — different licenses
+================================================================================
+
+The AGPL applies to the game *code* (anything under `src/`, `tools/`,
+`index.html`, `styles.css`, and similar source files). The bundled assets
+under `Ninja Adventure - Asset Pack/`, `assets/`, and `audio/` are
+licensed separately as described below. These licenses are compatible
+with redistribution alongside an AGPL-licensed program.
+
+--------------------------------------------------------------------------------
+Sprites, tilesets, and bundled sound effects
+--------------------------------------------------------------------------------
+
+  Pack:    Ninja Adventure Asset Pack
+  Authors: Pixel-boy  (https://pixel-boy.itch.io/)
+           AAA        (https://www.instagram.com/challenger.aaa/)
+  Pack page: https://pixel-boy.itch.io/ninja-adventure-asset-pack
+  License: Creative Commons Zero (CC0 1.0 Universal) — public domain
+           See `Ninja Adventure - Asset Pack/LICENSE.txt`.
+
+The ambient sound effects `audio/wind.wav` and `audio/bird.wav` are taken
+from the same Ninja Adventure Asset Pack (CC0).
+
+--------------------------------------------------------------------------------
+Background music
+--------------------------------------------------------------------------------
+
+  File:    audio/Forest_Ambient.ogg
+  Title:   "Forest Ambient Game Music"
+  Author:  16Pixel (https://16pixel.itch.io/)
+  Source:  OpenGameArt.org (uploaded 2025-06-21)
+  License: Creative Commons Attribution-ShareAlike 4.0 International
+           (CC BY-SA 4.0) — https://creativecommons.org/licenses/by-sa/4.0/
+
+This single music file is licensed under CC BY-SA 4.0. Per the ShareAlike
+clause, any modified or derivative version of THIS MUSIC FILE that is
+redistributed must also be released under CC BY-SA 4.0 (or a compatible
+license). The ShareAlike obligation applies only to the music itself; it
+does NOT extend to the rest of this project.
+
+--------------------------------------------------------------------------------
+Voice recordings
+--------------------------------------------------------------------------------
+
+  Files:   audio/*.ogg / audio/*.wav  (Polish syllables and feedback,
+           excluding wind.wav, bird.wav, and Forest_Ambient.ogg)
+  Author:  Kacper Andrzejczak
+  License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+           https://creativecommons.org/licenses/by/4.0/
+
+Using or redistributing the voice recordings requires attribution to
+"Kacper Andrzejczak" together with a link to the CC BY 4.0 license.
