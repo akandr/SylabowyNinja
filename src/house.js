@@ -2,8 +2,8 @@
 // TilesetHouse.png, with its three top tile rows marked as walls so the
 // player can stand at the door but not walk through the building.
 
-import { TILE } from './maze.js?v=78';
-import { sheets, drawRect, SRC } from './sprites.js?v=78';
+import { TILE } from './maze.js?v=79';
+import { sheets, drawRect, SRC } from './sprites.js?v=79';
 
 // Top-left orange-roof house in the source tileset (cols 0..3, rows 0..2).
 // The 4th row of the tileset contains unrelated door/window tiles, not part

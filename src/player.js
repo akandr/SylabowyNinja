@@ -3,8 +3,8 @@
 // tiles. Held inputs are buffered so a turn pressed mid-move takes effect
 // at the next intersection — much easier to control with touch/D-pad.
 
-import { TILE, isWall } from './maze.js?v=78';
-import { sheets, DIR_COL, drawSprite } from './sprites.js?v=78';
+import { TILE, isWall } from './maze.js?v=79';
+import { sheets, DIR_COL, drawSprite } from './sprites.js?v=79';
 
 const SPEED = 220;     // px/sec along the moving axis (slightly faster — no diag)
 const SCALE = 3;       // 16px source -> 48px on screen

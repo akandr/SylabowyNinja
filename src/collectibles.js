@@ -1,7 +1,7 @@
 // Syllable tiles scattered on free cells. One pickup at a time on collision.
 
-import { TILE } from './maze.js?v=78';
-import { pickRandom } from './syllables.js?v=78';
+import { TILE } from './maze.js?v=79';
+import { pickRandom } from './syllables.js?v=79';
 
 // Pickup hitbox is a bit larger than the visible disk so brushing past one
 // counts. Disk radius is 26 — wide enough to fit 4-letter syllables.

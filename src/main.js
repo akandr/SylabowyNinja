@@ -1,9 +1,9 @@
 // Bootstrap: menu → game.
 
-import { SETS } from './syllables.js?v=78';
-import { initTTS, setMuted, isMuted, unlockAudio } from './tts.js?v=78';
-import { initGame, startGame, stopGame, setMusicVolume } from './game.js?v=78';
-import { setSfxMuted, setSfxVolume } from './sfx.js?v=78';
+import { SETS } from './syllables.js?v=79';
+import { initTTS, setMuted, isMuted, unlockAudio } from './tts.js?v=79';
+import { initGame, startGame, stopGame, setMusicVolume } from './game.js?v=79';
+import { setSfxMuted, setSfxVolume } from './sfx.js?v=79';
 
 const menu = document.getElementById('menu');
 const gameScreen = document.getElementById('game');
@@ -48,6 +48,7 @@ function showGame() {
   startGame([...selected], {
     noReveal:  !!(optNoReveal  && optNoReveal.checked),
     noEnemies: !!(optNoEnemies && optNoEnemies.checked),
+    easy:      !!(optEasy      && optEasy.checked),
   });
 }
 
@@ -65,6 +66,7 @@ startBtn.addEventListener('click', () => {
 // Difficulty toggles — persist across sessions.
 const optNoReveal  = document.getElementById('opt-no-reveal');
 const optNoEnemies = document.getElementById('opt-no-enemies');
+const optEasy      = document.getElementById('opt-easy');
 if (optNoReveal) {
   optNoReveal.checked = localStorage.getItem('noReveal') === '1';
   optNoReveal.addEventListener('change', () => {
@@ -75,6 +77,12 @@ if (optNoEnemies) {
   optNoEnemies.checked = localStorage.getItem('noEnemies') === '1';
   optNoEnemies.addEventListener('change', () => {
     localStorage.setItem('noEnemies', optNoEnemies.checked ? '1' : '0');
+  });
+}
+if (optEasy) {
+  optEasy.checked = localStorage.getItem('easy') === '1';
+  optEasy.addEventListener('change', () => {
+    localStorage.setItem('easy', optEasy.checked ? '1' : '0');
   });
 }
 backBtn.addEventListener('click', showMenu);

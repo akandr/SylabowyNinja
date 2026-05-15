@@ -7,8 +7,8 @@
 // sheet and a player touch *eats* them instead of penalizing. Eaten enemies
 // disappear for RESPAWN_DELAY_S and reappear far from the player.
 
-import { TILE, isWall } from './maze.js?v=78';
-import { sheets, drawRect } from './sprites.js?v=78';
+import { TILE, isWall } from './maze.js?v=79';
+import { sheets, drawRect } from './sprites.js?v=79';
 
 // SquidRed Walk.png is 304x79 = 4 frames horizontally at 76x79 each.
 const FRAME_W = 76, FRAME_H = 79;
