@@ -30,9 +30,6 @@ Ninja Adventure - Asset Pack/
 # Local debug pages (handy during development, not part of the game)
 debug/
 
-# Build mirror used for deployment (regenerated from src/, index.html, styles.css)
-deploy/
-
 # Logs
 *.log
 
