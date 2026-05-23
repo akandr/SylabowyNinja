@@ -1,18 +1,18 @@
 // Main game state, loop, and camera.
 
-import { createMaze, drawMaze, TILE } from './maze.js?v=79';
-import { createPlayer, updatePlayer, drawPlayer } from './player.js?v=79';
-import { createInput } from './input.js?v=79';
-import { spawnCollectibles, checkPickup, respawnCollectible, drawCollectibles } from './collectibles.js?v=79';
-import { resolveItems, pickRandom, sameSound } from './syllables.js?v=79';
-import { setTarget, clearTarget, speakOnce, prefetchAll, holdTarget, noteActivity, speakWithHold, getAudioContext as ttsGetAudioContext } from './tts.js?v=79';
-import { loadSprites } from './sprites.js?v=79';
-import { spawnGood, spawnBad, spawnPop, updateEffects, drawEffects, clearEffects } from './effects.js?v=79';
-import { placeHouse, drawHouse } from './house.js?v=79';
-import { spawnEnemies, updateEnemies, drawEnemies, checkEnemyHit, knockbackEnemy, eatEnemy } from './enemies.js?v=79';
-import { createDiamondState, updateDiamond, checkDiamondPickup, consumeDiamond, drawDiamond } from './diamond.js?v=79';
-import { createFreezeState, updateFreeze, checkFreezePickup, consumeFreeze, drawFreeze } from './freeze.js?v=79';
-import { preloadSfx, playSfx, setSfxMuted } from './sfx.js?v=79';
+import { createMaze, drawMaze, TILE } from './maze.js?v=82';
+import { createPlayer, updatePlayer, drawPlayer } from './player.js?v=82';
+import { createInput } from './input.js?v=82';
+import { spawnCollectibles, checkPickup, respawnCollectible, drawCollectibles } from './collectibles.js?v=82';
+import { resolveItems, pickRandom, sameSound } from './syllables.js?v=82';
+import { setTarget, clearTarget, speakOnce, prefetchAll, holdTarget, noteActivity, speakWithHold, getAudioContext as ttsGetAudioContext } from './tts.js?v=82';
+import { loadSprites } from './sprites.js?v=82';
+import { spawnGood, spawnBad, spawnPop, updateEffects, drawEffects, clearEffects } from './effects.js?v=82';
+import { placeHouse, drawHouse } from './house.js?v=82';
+import { spawnEnemies, updateEnemies, drawEnemies, checkEnemyHit, knockbackEnemy, eatEnemy } from './enemies.js?v=82';
+import { createDiamondState, updateDiamond, checkDiamondPickup, consumeDiamond, drawDiamond } from './diamond.js?v=82';
+import { createFreezeState, updateFreeze, checkFreezePickup, consumeFreeze, drawFreeze } from './freeze.js?v=82';
+import { preloadSfx, playSfx, setSfxMuted } from './sfx.js?v=82';
 
 const WIN_SCORE = 100;
 
@@ -277,7 +277,7 @@ function showAudioWarning(failed) {
 }
 
 // Active gameplay options for the current run, set by startGame().
-let options = { noReveal: false, noEnemies: false, easy: false };
+let options = { noReveal: false, noEnemies: false, easyHighlight: false, easyArrow: false };
 
 // Time of the last directional input (any of up/down/left/right pressed).
 // Used by Easy mode to decide when to draw the "go this way" arrow above
@@ -287,9 +287,10 @@ const EASY_ARROW_IDLE_MS = 3500;
 
 export async function startGame(setIds, opts = {}) {
   options = {
-    noReveal:  !!opts.noReveal,
-    noEnemies: !!opts.noEnemies,
-    easy:      !!opts.easy,
+    noReveal:      !!opts.noReveal,
+    noEnemies:     !!opts.noEnemies,
+    easyHighlight: !!opts.easyHighlight,
+    easyArrow:     !!opts.easyArrow,
   };
   // Resolve combined item list from selected sets.
   const merged = new Set();
@@ -778,7 +779,9 @@ function render() {
   // cells were marked as walls in placeHouse(), so player can't walk through.
   drawHouse(ctx, house);
   drawCollectibles(ctx, collectibles, timeAcc);
-  if (options.easy) drawEasyHints(ctx, collectibles, target, player, timeAcc);
+  if (options.easyHighlight || options.easyArrow) {
+    drawEasyHints(ctx, collectibles, target, player, timeAcc);
+  }
   drawDiamond(ctx, diamond);
   drawFreeze(ctx, freeze);
   drawEnemies(ctx, enemies, {
@@ -818,32 +821,38 @@ function updatePowerRing(name, left, total, blinkAt, color, blinkColor) {
 }
 
 // Easy-mode visual aids (drawn in world space, after collectibles, before
-// power-ups so they sit behind diamonds/scrolls):
-//   1) a soft pulsing yellow halo around every correct-syllable disk so the
-//      kid sees the goal at a glance,
-//   2) after a few seconds without movement, a pulsing arrow above the
-//      ninja that points toward the nearest correct disk.
+// power-ups so they sit behind diamonds/scrolls). Two independent layers:
+//   1) [easyHighlight] a subtle pulsing glow around correct-syllable disks
+//      (deliberately faint so it nudges the eye rather than screams "here!"),
+//   2) [easyArrow] after a few seconds without movement, a pulsing arrow
+//      above the ninja that points toward the nearest correct disk.
 function drawEasyHints(ctx, collectibles, target, player, t) {
   if (!collectibles || !target) return;
-  const pulse = 0.55 + 0.45 * (0.5 + 0.5 * Math.sin(t * 4));
-  // (1) Halos.
+  // Slow, gentle breathing pulse (period ~2.5 s, amplitude small).
+  const pulse = 0.75 + 0.25 * (0.5 + 0.5 * Math.sin(t * 2.5));
   let nearest = null, nearestD2 = Infinity;
   for (const c of collectibles) {
     if (!sameSound(c.text, target)) continue;
-    ctx.save();
-    ctx.globalAlpha = 0.55 * pulse;
-    ctx.fillStyle = '#fff27a';
-    ctx.beginPath(); ctx.arc(c.x, c.y, 38, 0, Math.PI * 2); ctx.fill();
-    ctx.globalAlpha = 0.85;
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = '#ffb000';
-    ctx.beginPath(); ctx.arc(c.x, c.y, 32, 0, Math.PI * 2); ctx.stroke();
-    ctx.restore();
+    if (options.easyHighlight) {
+      // Soft outer glow + thin ring. Mid-strength: more visible than a
+      // pure halo but still well below the old neon look so the kid has
+      // to actually look at the syllable to read it.
+      ctx.save();
+      ctx.globalAlpha = 0.38 * pulse;
+      ctx.fillStyle = '#ffe680';
+      ctx.beginPath(); ctx.arc(c.x, c.y, 30, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = 0.55 * pulse;
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#ffb84a';
+      ctx.beginPath(); ctx.arc(c.x, c.y, 24, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    }
     const dx = c.x - player.x, dy = c.y - player.y;
     const d2 = dx * dx + dy * dy;
     if (d2 < nearestD2) { nearestD2 = d2; nearest = c; }
   }
   // (2) Idle arrow over the player, pointing at the nearest correct disk.
+  if (!options.easyArrow) return;
   if (!nearest) return;
   const idleMs = performance.now() - lastMoveAt;
   if (idleMs < EASY_ARROW_IDLE_MS) return;

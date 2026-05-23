@@ -18,9 +18,25 @@ export const SETS = {
       'pypa', 'pypo',
     ],
   },
+  'm-basic': {
+    label: 'sylaby 2-literowe z "m" (ma, mo, me…)',
+    items: ['ma', 'me', 'mi', 'mo', 'mu', 'my', 'mą', 'mę'],
+  },
+  'm-mixes-2': {
+    label: 'pary sylab z "m" (mama, mami, mumu…)',
+    // Must match the recorded .ogg files in /audio (built from
+    // kacper_sounds/*.wav via tools/build_kacper_audio.sh).
+    items: [
+      'mama', 'mame', 'mami', 'mamo', 'mamu',
+      'memu',
+      'mima', 'mimi', 'mimo', 'mimu',
+      'moma', 'mome', 'momi', 'momo', 'momu',
+      'muma', 'mumi', 'mumu',
+      'myma', 'mymy',
+    ],
+  },
   // Examples for future expansion (uncomment / add as needed):
   // 't-basic': { label: 'ta te ti to tu ty', items: ['ta','te','ti','to','tu','ty'] },
-  // 'm-basic': { label: 'ma me mi mo mu my', items: ['ma','me','mi','mo','mu','my'] },
   // 'pt-group': { label: 'p + t (grupa)', group: ['p-basic', 't-basic'] },
 };
 

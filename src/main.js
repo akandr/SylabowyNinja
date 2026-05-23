@@ -1,9 +1,9 @@
 // Bootstrap: menu → game.
 
-import { SETS } from './syllables.js?v=79';
-import { initTTS, setMuted, isMuted, unlockAudio } from './tts.js?v=79';
-import { initGame, startGame, stopGame, setMusicVolume } from './game.js?v=79';
-import { setSfxMuted, setSfxVolume } from './sfx.js?v=79';
+import { SETS } from './syllables.js?v=82';
+import { initTTS, setMuted, isMuted, unlockAudio } from './tts.js?v=82';
+import { initGame, startGame, stopGame, setMusicVolume } from './game.js?v=82';
+import { setSfxMuted, setSfxVolume } from './sfx.js?v=82';
 
 const menu = document.getElementById('menu');
 const gameScreen = document.getElementById('game');
@@ -46,9 +46,10 @@ function showGame() {
   menu.classList.add('hidden');
   gameScreen.classList.remove('hidden');
   startGame([...selected], {
-    noReveal:  !!(optNoReveal  && optNoReveal.checked),
-    noEnemies: !!(optNoEnemies && optNoEnemies.checked),
-    easy:      !!(optEasy      && optEasy.checked),
+    noReveal:      !!(optNoReveal      && optNoReveal.checked),
+    noEnemies:     !!(optNoEnemies     && optNoEnemies.checked),
+    easyHighlight: !!(optEasyHighlight && optEasyHighlight.checked),
+    easyArrow:     !!(optEasyArrow     && optEasyArrow.checked),
   });
 }
 
@@ -64,9 +65,10 @@ startBtn.addEventListener('click', () => {
 });
 
 // Difficulty toggles — persist across sessions.
-const optNoReveal  = document.getElementById('opt-no-reveal');
-const optNoEnemies = document.getElementById('opt-no-enemies');
-const optEasy      = document.getElementById('opt-easy');
+const optNoReveal       = document.getElementById('opt-no-reveal');
+const optNoEnemies      = document.getElementById('opt-no-enemies');
+const optEasyHighlight  = document.getElementById('opt-easy-highlight');
+const optEasyArrow      = document.getElementById('opt-easy-arrow');
 if (optNoReveal) {
   optNoReveal.checked = localStorage.getItem('noReveal') === '1';
   optNoReveal.addEventListener('change', () => {
@@ -79,10 +81,25 @@ if (optNoEnemies) {
     localStorage.setItem('noEnemies', optNoEnemies.checked ? '1' : '0');
   });
 }
-if (optEasy) {
-  optEasy.checked = localStorage.getItem('easy') === '1';
-  optEasy.addEventListener('change', () => {
-    localStorage.setItem('easy', optEasy.checked ? '1' : '0');
+// One-time migration: old single "easy" flag → both new flags on.
+const legacyEasy = localStorage.getItem('easy');
+if (legacyEasy != null) {
+  if (legacyEasy === '1') {
+    if (localStorage.getItem('easyHighlight') == null) localStorage.setItem('easyHighlight', '1');
+    if (localStorage.getItem('easyArrow')     == null) localStorage.setItem('easyArrow',     '1');
+  }
+  localStorage.removeItem('easy');
+}
+if (optEasyHighlight) {
+  optEasyHighlight.checked = localStorage.getItem('easyHighlight') === '1';
+  optEasyHighlight.addEventListener('change', () => {
+    localStorage.setItem('easyHighlight', optEasyHighlight.checked ? '1' : '0');
+  });
+}
+if (optEasyArrow) {
+  optEasyArrow.checked = localStorage.getItem('easyArrow') === '1';
+  optEasyArrow.addEventListener('change', () => {
+    localStorage.setItem('easyArrow', optEasyArrow.checked ? '1' : '0');
   });
 }
 backBtn.addEventListener('click', showMenu);
