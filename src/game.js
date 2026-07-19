@@ -1,18 +1,18 @@
 // Main game state, loop, and camera.
 
-import { createMaze, drawMaze, TILE } from './maze.js?v=83';
-import { createPlayer, updatePlayer, drawPlayer } from './player.js?v=83';
-import { createInput } from './input.js?v=83';
-import { spawnCollectibles, checkPickup, respawnCollectible, drawCollectibles } from './collectibles.js?v=83';
-import { resolveItems, pickRandom, sameSound } from './syllables.js?v=83';
-import { setTarget, clearTarget, speakOnce, prefetchAll, holdTarget, noteActivity, speakWithHold, getAudioContext as ttsGetAudioContext } from './tts.js?v=83';
-import { loadSprites } from './sprites.js?v=83';
-import { spawnGood, spawnBad, spawnPop, updateEffects, drawEffects, clearEffects } from './effects.js?v=83';
-import { placeHouse, drawHouse } from './house.js?v=83';
-import { spawnEnemies, updateEnemies, drawEnemies, checkEnemyHit, knockbackEnemy, eatEnemy } from './enemies.js?v=83';
-import { createDiamondState, updateDiamond, checkDiamondPickup, consumeDiamond, drawDiamond } from './diamond.js?v=83';
-import { createFreezeState, updateFreeze, checkFreezePickup, consumeFreeze, drawFreeze } from './freeze.js?v=83';
-import { preloadSfx, playSfx, setSfxMuted } from './sfx.js?v=83';
+import { createMaze, drawMaze, TILE } from './maze.js?v=84';
+import { createPlayer, updatePlayer, drawPlayer } from './player.js?v=84';
+import { createInput } from './input.js?v=84';
+import { spawnCollectibles, checkPickup, respawnCollectible, drawCollectibles } from './collectibles.js?v=84';
+import { resolveItems, pickRandom, sameSound } from './syllables.js?v=84';
+import { setTarget, clearTarget, speakOnce, prefetchAll, holdTarget, noteActivity, speakWithHold, getAudioContext as ttsGetAudioContext } from './tts.js?v=84';
+import { loadSprites } from './sprites.js?v=84';
+import { spawnGood, spawnBad, spawnPop, updateEffects, drawEffects, clearEffects } from './effects.js?v=84';
+import { placeHouse, drawHouse } from './house.js?v=84';
+import { spawnEnemies, updateEnemies, drawEnemies, checkEnemyHit, knockbackEnemy, eatEnemy } from './enemies.js?v=84';
+import { createDiamondState, updateDiamond, checkDiamondPickup, consumeDiamond, drawDiamond } from './diamond.js?v=84';
+import { createFreezeState, updateFreeze, checkFreezePickup, consumeFreeze, drawFreeze } from './freeze.js?v=84';
+import { preloadSfx, playSfx, setSfxMuted } from './sfx.js?v=84';
 
 const WIN_SCORE = 100;
 
@@ -142,6 +142,15 @@ function stopAmbience() {
 // Scale the world to the chosen syllable pool: more sets → bigger map, more
 // tiles, more enemies, so the items spread out and the game stays fun.
 function levelParamsFor(itemCount) {
+  if (itemCount >= 150) {
+    return { cols: 96, rows: 56, collectibles: 128, enemies: 8, density: 0.18 };
+  }
+  if (itemCount >= 100) {
+    return { cols: 84, rows: 50, collectibles: 104, enemies: 7, density: 0.18 };
+  }
+  if (itemCount >= 60) {
+    return { cols: 72, rows: 44, collectibles: 84, enemies: 6, density: 0.18 };
+  }
   if (itemCount >= 30) {
     return { cols: 60, rows: 36, collectibles: 64, enemies: 5, density: 0.18 };
   }
