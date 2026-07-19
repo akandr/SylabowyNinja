@@ -1,18 +1,18 @@
 // Main game state, loop, and camera.
 
-import { createMaze, drawMaze, TILE } from './maze.js?v=82';
-import { createPlayer, updatePlayer, drawPlayer } from './player.js?v=82';
-import { createInput } from './input.js?v=82';
-import { spawnCollectibles, checkPickup, respawnCollectible, drawCollectibles } from './collectibles.js?v=82';
-import { resolveItems, pickRandom, sameSound } from './syllables.js?v=82';
-import { setTarget, clearTarget, speakOnce, prefetchAll, holdTarget, noteActivity, speakWithHold, getAudioContext as ttsGetAudioContext } from './tts.js?v=82';
-import { loadSprites } from './sprites.js?v=82';
-import { spawnGood, spawnBad, spawnPop, updateEffects, drawEffects, clearEffects } from './effects.js?v=82';
-import { placeHouse, drawHouse } from './house.js?v=82';
-import { spawnEnemies, updateEnemies, drawEnemies, checkEnemyHit, knockbackEnemy, eatEnemy } from './enemies.js?v=82';
-import { createDiamondState, updateDiamond, checkDiamondPickup, consumeDiamond, drawDiamond } from './diamond.js?v=82';
-import { createFreezeState, updateFreeze, checkFreezePickup, consumeFreeze, drawFreeze } from './freeze.js?v=82';
-import { preloadSfx, playSfx, setSfxMuted } from './sfx.js?v=82';
+import { createMaze, drawMaze, TILE } from './maze.js?v=83';
+import { createPlayer, updatePlayer, drawPlayer } from './player.js?v=83';
+import { createInput } from './input.js?v=83';
+import { spawnCollectibles, checkPickup, respawnCollectible, drawCollectibles } from './collectibles.js?v=83';
+import { resolveItems, pickRandom, sameSound } from './syllables.js?v=83';
+import { setTarget, clearTarget, speakOnce, prefetchAll, holdTarget, noteActivity, speakWithHold, getAudioContext as ttsGetAudioContext } from './tts.js?v=83';
+import { loadSprites } from './sprites.js?v=83';
+import { spawnGood, spawnBad, spawnPop, updateEffects, drawEffects, clearEffects } from './effects.js?v=83';
+import { placeHouse, drawHouse } from './house.js?v=83';
+import { spawnEnemies, updateEnemies, drawEnemies, checkEnemyHit, knockbackEnemy, eatEnemy } from './enemies.js?v=83';
+import { createDiamondState, updateDiamond, checkDiamondPickup, consumeDiamond, drawDiamond } from './diamond.js?v=83';
+import { createFreezeState, updateFreeze, checkFreezePickup, consumeFreeze, drawFreeze } from './freeze.js?v=83';
+import { preloadSfx, playSfx, setSfxMuted } from './sfx.js?v=83';
 
 const WIN_SCORE = 100;
 

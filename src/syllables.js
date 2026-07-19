@@ -35,6 +35,23 @@ export const SETS = {
       'myma', 'mymy',
     ],
   },
+  'b-basic': {
+    label: 'sylaby 2-literowe z "b" (ba, bo, be…)',
+    items: ['ba', 'bo', 'bó', 'be', 'bu', 'by', 'bi', 'bą', 'bę'],
+  },
+  'b-mixes-2': {
+    label: 'pary sylab z "b" (baba, bobo, bubu…)',
+    // Must match the recorded .ogg files in /audio (built from
+    // kacper_sounds/*.wav via tools/build_kacper_audio.sh).
+    items: [
+      'baba', 'babo', 'babe', 'babu', 'babi', 'baby',
+      'beba', 'bebo', 'bebe', 'bebu', 'bebi',
+      'boba', 'bobo', 'bobe', 'bobi', 'bobu',
+      'buba', 'bubo', 'bube', 'bubi', 'bubu',
+      'biba', 'bibi', 'bibo', 'bibu',
+      'byba', 'bybo',
+    ],
+  },
   // Examples for future expansion (uncomment / add as needed):
   // 't-basic': { label: 'ta te ti to tu ty', items: ['ta','te','ti','to','tu','ty'] },
   // 'pt-group': { label: 'p + t (grupa)', group: ['p-basic', 't-basic'] },
@@ -64,6 +81,8 @@ export function pickRandom(items, exclude = null) {
 export const HOMOPHONES = {
   'pó': 'pu',
   'pu': 'pu',
+  'bó': 'bu',
+  'bu': 'bu',
 };
 
 export function canonical(text) {

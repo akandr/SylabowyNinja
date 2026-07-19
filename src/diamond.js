@@ -8,8 +8,8 @@
 //   - Picks a free cell that is at least MIN_DIST tiles from the player,
 //     not on a syllable tile, and not in the house safe zone.
 
-import { TILE, isWall } from './maze.js?v=82';
-import { sheets } from './sprites.js?v=82';
+import { TILE, isWall } from './maze.js?v=83';
+import { sheets } from './sprites.js?v=83';
 
 const SPAWN_MIN_S = 12;     // earliest seconds until a new diamond appears
 const SPAWN_MAX_S = 25;     // latest seconds until a new diamond appears

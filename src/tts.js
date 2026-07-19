@@ -2,7 +2,7 @@
 // Primary: pre-rendered WAVs in /audio (built by tools/build_audio.sh, voice: Zosia).
 // Fallback: Web Speech API in pl-PL (used only if a WAV is missing).
 
-import { canonical } from './syllables.js?v=82';
+import { canonical } from './syllables.js?v=83';
 
 const AUDIO_DIR = 'audio/';
 let voice = null;

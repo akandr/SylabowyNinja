@@ -4,8 +4,8 @@
 // blue tint. Touching a frozen enemy does NOT penalize the player — they
 // just bump off it harmlessly so the kid can run past clusters safely.
 
-import { TILE, isWall } from './maze.js?v=82';
-import { sheets } from './sprites.js?v=82';
+import { TILE, isWall } from './maze.js?v=83';
+import { sheets } from './sprites.js?v=83';
 
 const SPAWN_MIN_S = 25;     // rarer than the coin
 const SPAWN_MAX_S = 45;

@@ -1,7 +1,7 @@
 // Tile-based maze rendered with the Ninja Adventure tilesets.
 // 0 = floor (walkable), 1 = wall (blocking), 2 = decorative grass (walkable).
 
-import { sheets, drawTile, SRC } from './sprites.js?v=82';
+import { sheets, drawTile, SRC } from './sprites.js?v=83';
 
 const TILE_SCALE = 3;
 export const TILE = SRC * TILE_SCALE; // 48

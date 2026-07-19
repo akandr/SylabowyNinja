@@ -1,9 +1,9 @@
 // Bootstrap: menu → game.
 
-import { SETS } from './syllables.js?v=82';
-import { initTTS, setMuted, isMuted, unlockAudio } from './tts.js?v=82';
-import { initGame, startGame, stopGame, setMusicVolume } from './game.js?v=82';
-import { setSfxMuted, setSfxVolume } from './sfx.js?v=82';
+import { SETS } from './syllables.js?v=83';
+import { initTTS, setMuted, isMuted, unlockAudio } from './tts.js?v=83';
+import { initGame, startGame, stopGame, setMusicVolume } from './game.js?v=83';
+import { setSfxMuted, setSfxVolume } from './sfx.js?v=83';
 
 const menu = document.getElementById('menu');
 const gameScreen = document.getElementById('game');

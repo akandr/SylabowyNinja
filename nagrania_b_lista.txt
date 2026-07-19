@@ -1,0 +1,53 @@
+# Lista głosek do nagrania — grupa "b"
+#
+# Jak nagrywać (tak samo jak przy "p" i "m"):
+#   - jeden plik WAV na sylabę, nazwa pliku = sylaba (polskie znaki OK, np. bą.wav)
+#   - pliki wrzuć do kacper_sounds/
+#   - konwersję do audio/*.ogg zrobi tools/build_kacper_audio.sh
+#
+# Uwaga: "bó" brzmi jak "bu", więc nie nagrywamy go osobno
+# (w grze podepniemy je do nagrania "bu", tak jak pó→pu).
+
+# --- sylaby pojedyncze (8) ---
+ba
+be
+bi
+bo
+bu
+by
+bą
+bę
+
+# --- pary sylab (27) ---
+baba
+babo
+babe
+babu
+babi
+baby
+
+beba
+bebow
+bebe
+bebu
+bebi
+
+boba
+bobo
+bobe
+bobi
+bobu
+
+buba
+bubo
+bube
+bubi
+bubu
+
+biba
+bibi
+bibo
+bibu
+
+byba
+bybo
